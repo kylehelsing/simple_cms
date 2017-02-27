@@ -6,7 +6,7 @@
   <table class="listing" summary="Section list">
     <tr class="header">
       <th>&nbsp;</th>
-      <th>Page ID</th>
+      <th>Page</th>
       <th>Section</th>
       <th>Content Type</th>
       <th>Visible</th>
@@ -15,7 +15,7 @@
     <% @sections.each do |section| %>
     <tr>
       <td><%= section.position %></td>
-      <td><%= section.page_id %></td>
+      <td><%= section.page.name if section.page %></td>
       <td><%= section.name %></td>
       <td><%= section.content_type %></td>
       <td class="center"><%= status_tag(section.visible) %></td>
