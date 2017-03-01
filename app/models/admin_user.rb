@@ -38,15 +38,17 @@ class AdminUser < ActiveRecord::Base
   validate :username_is_allowed
   #validate :no_new_users_on_saturday, :on => :create
 
-  def username_is_allowed
-    if FORBIDDEN_USERNAMES.include?(username)
-      errors.add(:username, "has been restricted from use.")
-    end
+  scope :sorted, lambda { order("last_name ASC, first_name ASC") }
+
+  def name
+    "#{first_name} #{last_name}"
   end
-  #errors not related to an attribute can be added to errors[:base]
-  def no_new_users_on_saturday
-    if Time.now.wday == 6
-      errors[:base] << "No new users on Saturdays"
+
+  private
+
+  def username_is_allowed
+    if FORBIDDEN_USERNAMES.inlcude?(username)
+      errors.add(:username, "has been restricted from use")
     end
   end
 end
